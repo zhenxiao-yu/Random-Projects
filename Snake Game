@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Classic Snake by Mark Yu</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+    </style>
+    <script type="text/javascript">
+
+        function Map() {
+            var w = 800;
+            var h = 400;
+
+            this.drawMap = function () {
+
+                var backgroundArt = document.createElement('div');
+
+                backgroundArt.style.width = w + "px";
+                backgroundArt.style.height = h + "px";
+                backgroundArt.style.backgroundImage = "url('https://thumbs.gfycat.com/BlackandwhiteGrossGalapagoshawk-small.gif')";
+
+                document.body.appendChild(backgroundArt);
+            }
+        }
+
+
+        function Food() {
+            var len = 20;
+            this.xFood = 0;
+            this.yFood = 0;
+            this.piece = null;
+
+            this.showfood = function () {
+
+                if (this.piece === null) {
+                    this.piece = document.createElement('div');
+                    this.piece.style.width = this.piece.style.height = len + "px";
+                    this.piece.style.backgroundColor = "steelblue";
+                    this.piece.style.borderRadius = 2 + "px";
+                    this.piece.style.position = "absolute";
+
+                    document.body.appendChild(this.piece);
+                }
+
+                this.xFood = Math.floor(Math.random() * 40);
+                this.yFood = Math.floor(Math.random() * 20);
+
+                this.piece.style.left = this.xFood * len + "px";
+                this.piece.style.top = this.yFood * len + "px";
+
+            }
+        }
+
+        function Snake() {
+            var len = 20;
+            this.redirect = "right";
+
+            this.sBody = [[0, 1, 'red', null], [1, 1, 'red', null], [2, 1, 'red', null], [3, 1, 'gold', null]];
+
+            this.showsnake = function () {
+                for (var i = 0; i < this.sBody.length; i++) {
+                    if (this.sBody[i][3] === null) {
+                        this.sBody[i][3] = document.createElement('div');
+                        this.sBody[i][3].style.width = this.sBody[i][3].style.height = len + "px";
+                        this.sBody[i][3].style.backgroundColor = this.sBody[i][2];
+                        this.sBody[i][3].style.position = "absolute";
+
+                        document.body.appendChild(this.sBody[i][3]);
+                    }
+                    this.sBody[i][3].style.left = this.sBody[i][0] * len + "px";
+                    this.sBody[i][3].style.top = this.sBody[i][1] * len + "px";
+                }
+            }
+
+
+            this.movesnake = function () {
+
+                for (var i = 0; i < this.sBody.length - 1; i++) {
+                    this.sBody[i][0] = this.sBody[i + 1][0];
+                    this.sBody[i][1] = this.sBody[i + 1][1];
+                }
+                if (this.redirect == "right") {
+
+                    this.sBody[this.sBody.length - 1][0] += 1;
+                }
+                if (this.redirect == "left") {
+
+                    this.sBody[this.sBody.length - 1][0] -= 1;
+                }
+                if (this.redirect == "up") {
+
+                    this.sBody[this.sBody.length - 1][1] -= 1;
+                }
+                if (this.redirect == "down") {
+
+                    this.sBody[this.sBody.length - 1][1] += 1;
+                }
+
+                var xSnake = this.sBody[this.sBody.length - 1][0];
+                var ySnake = this.sBody[this.sBody.length - 1][1];
+
+                if (xSnake == food.xFood && ySnake == food.yFood) {
+
+                    var newjie = [this.sBody[0][0], this.sBody[0][1], 'red', null];
+                    this.sBody.unshift(newjie);
+                    food.showfood();
+                }
+                if (xSnake < 0 || xSnake > 39 || ySnake < 0 || ySnake > 19) {
+                    alert('game over!');
+                    clearInterval(mytime);
+                    return false;
+                }
+                for (var k = 0; k < this.sBody.length - 1; k++) {
+                    if (this.sBody[k][0] == xSnake && this.sBody[k][1] == ySnake) {
+                        alert('you killed yourself!');
+                        clearInterval(mytime);
+                        return false;
+                    }
+                }
+                this.showsnake();
+            }
+        }
+
+        window.onload = function () {
+            var map = new Map();
+            map.drawMap();
+
+            food = new Food();
+            food.showfood();
+
+            snake = new Snake();
+            snake.showsnake();
+
+
+            mytime = setInterval("snake.movesnake()", 150);
+
+            document.onkeydown = function (keyEvent) {
+                var num = keyEvent.keyCode;
+            
+                if (num == 37) {
+                    snake.redirect = "left";
+                }
+                if (num == 39) {
+                    snake.redirect = "right";
+                }
+
+                if (num == 40) {
+                    snake.redirect = "down";
+                }
+
+                if (num == 38) {
+                    snake.redirect = "up";
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body></body>
+
+</html>
