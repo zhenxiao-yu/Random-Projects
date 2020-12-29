@@ -1,0 +1,179 @@
+<head>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link href='https://fonts.googleapis.com/css?family=Milonga' rel='stylesheet'>
+
+<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'>
+
+<link href='https://fonts.googleapis.com/css?family=Overlock SC' rel='stylesheet'>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<style>
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: center;
+    background: url(https://static.wixstatic.com/media/984786_a7410c6861474c239252c9613c8ca9ef~mv2.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+}
+
+input, button {
+    font-family: 'Milonga';
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    width: 86%;
+    font-weight: 500;
+    font-size: 16px;
+    background: #D7D7D720;
+    color: white;
+}
+
+::placeholder {
+    color: #DADADA;
+}
+
+button {
+    background: black;
+    cursor: pointer;
+    width: 100%;
+}
+
+input:focus, button:focus {
+    outline:none;
+}
+
+#form {
+    background: #D7D7D750;
+    border-radius: 6px;
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#user {
+    font-size: 60px;
+    margin-top: 30px;
+    color: black;
+}
+
+#txt {
+    font-family: 'Overlock SC';
+    color: #343434;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+#keep {
+    font-size: 16px;
+    font-family: 'Allerta Stencil';
+}
+
+#check {
+    width: 20px;
+}
+
+.style_txt {
+    font-family: 'Overlock SC';
+}
+
+#tc {
+    color: white;
+    font-size: 16px;
+    font-family: 'Overlock SC';
+}
+
+a {
+    text-decoration: none;
+    color: #288AFF;
+    cursor: pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="form">
+
+<i id="user" class="material-icons">account_circle</i><br><br>
+
+<form><sub><i class="material-icons">mail</i></sub> <input id="email" type="email" placeholder="Username"><br>
+
+<sub><i class="material-icons">lock</i></sub> <input id="pass" type="password" placeholder="Password"></form>
+
+<div id="Keep"><input id="check" type="checkbox">Keep Me Logged In</div>
+
+<button onclick="login()">Login</button>
+
+<div data-aos='zoom-out-up' id="tc">*By Reading This Line With Eyes, You Agree With Our <a>Terms And Conditions</a></div>
+
+</div>
+
+<script>
+
+window.onload = function(){
+    Swal.fire({
+    icon: 'info',
+    title: '',
+    html: '<sub><i class="material-icons">mail</i></sub>Username = M4rkyu<br><sub><i class="material-icons">lock</i></sub>Pass = myPassWord123123'
+});
+AOS.init({
+        offset: 60
+});
+}
+
+function login(){
+    email=document.getElementById("email").value;
+    pass=document.getElementById("pass").value;
+    result=document.getElementById("result");
+    form=document.getElementById("form");
+    if(email == "krish" && pass == "krish123"){
+        Swal.fire({
+        icon: 'success',
+        title: '',
+        html: '<span style="font-size: 30px; font-family: Overlock SC;">Login Successfull<span> <sub><i style="font-size: 40px; color: #3BFF3B;" class="material-icons">verified_user</i></sub>'
+        });
+        form.innerHTML="<i id='user' class='material-icons'>account_circle</i><br><b>"+email+"</b><br><br><br><span id='txt'>Welcome Back!<br>Login successfull! <sub><i class='material-icons'>sentiment_very_satisfied</i></sub><br><br>Don't forget To Upvote <sub><i class='material-icons'>thumb_up</i></sub> And Share <sub><i class='material-icons'>share</i></sub> This Code!</span>";
+    }else{
+    Swal.fire({
+    icon: 'info',
+    title: 'Login Fail',
+    html: '<br><sub><i class="material-icons">mail</i></sub> <span class="style_txt">Email Or <sub><i class="material-icons">lock</i></sub> Password Is Incorrect</span> <sub><i style="color: red" class="material-icons">highlight_off</i></sub>'
+});
+}
+}
+
+</script>
+
+</body>
