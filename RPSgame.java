@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.Random;
 
+//rock paper scissors 
 public class RPSgame {
 
     public static void main(String[] args) {
